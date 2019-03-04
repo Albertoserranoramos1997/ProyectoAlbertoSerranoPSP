@@ -31,7 +31,7 @@ import Vista.VistaTickets;
  * @author Alberto Serrano y Antonio Ramayo
  *
  */
-public class CrearTicketController implements ActionListener, Runnable{
+public class CrearTicketController implements ActionListener{
 	CrearTicket ct;
 	ModeloLogica modelo;
 	 VistaTickets vt;
@@ -63,7 +63,7 @@ public class CrearTicketController implements ActionListener, Runnable{
 		
 		String nombre = eve.getActionCommand();
 		if (nombre.equals("Aceptar")) {
-			run(); 
+			enviar();
 			ct.setVisible(false);
 		}if (nombre.equals("Cancelar")) {
 			ct.setVisible(false);
@@ -71,7 +71,7 @@ public class CrearTicketController implements ActionListener, Runnable{
 		
 	}
 	
-	  public void run() {
+	  public void enviar() {
 		  try {	
 		 //puerto por el que escucha
 				int id_Caso = modelo.code()+1;
@@ -92,13 +92,15 @@ public class CrearTicketController implements ActionListener, Runnable{
 				 }else {
 					 estado = ct.Estado();
 				 }
-				Ticket t = new Ticket(id, id_Caso, id_Admin, fecha, asunto, prio, desc, estado);		 
+				Ticket t = new Ticket(id, id_Caso, id_Admin, fecha, asunto, prio, desc, estado);		
 		  ByteArrayOutputStream bs = new ByteArrayOutputStream();
           ObjectOutputStream ob = new ObjectOutputStream(bs);
           ob.writeObject(t);
           ob.close();	  
           byte[] ticketParaEnviar = bs.toByteArray();	           
 		  DatagramPacket envio = new DatagramPacket(ticketParaEnviar, ticketParaEnviar.length, IPAddress, 12345);
+		  System.out.println(envio);
+		  System.out.println(clientSocket);
 	      clientSocket.send(envio);   
 	      clientSocket.close(); 
 	  } catch (UnknownHostException ex) {

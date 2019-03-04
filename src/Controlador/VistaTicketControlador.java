@@ -30,6 +30,7 @@ import Modelo.ModeloLogica;
 import Vista.GenerarTicket;
 import Vista.ListaTickets;
 import Vista.VistaEnviar;
+import Vista.VistaRecibir;
 import Vista.VistaTickets;
 /**
  * Clase que controla la vista principal del admin reserva
@@ -81,6 +82,8 @@ public class VistaTicketControlador implements ActionListener {
 			    
 			}
 		if (nombre.equals("Recibir Email")) {
+			VistaRecibir vr = new VistaRecibir();
+			vr.setVisible(true);
 			String server = "pop.gmail.com", username = "pruebaalbertotono@gmail.com", password = "147258asd147258";
 			int puerto = 995;
 			POP3SClient pop3 = new POP3SClient(true);
@@ -91,18 +94,18 @@ public class VistaTicketControlador implements ActionListener {
 					System.out.println("error login");
 				}else {
 					POP3MessageInfo[] men = pop3.listMessages();
-					System.out.println("Nº de mensajes : " +men.length);
+					vr.getTextField().setText("Nº de mensajes : " +men.length);
 					for(int i=0; i<men.length; i++) {
 						System.out.println("Mensaje: " + (i+1));
 						POP3MessageInfo msginfo =  men[i];
-						System.out.println("IDentificador: "+ msginfo.identifier + " Number; " + msginfo.number + " Tamaño: " + msginfo.size);
+						//System.out.println("IDentificador: "+ msginfo.identifier + " Number; " + msginfo.number + " Tamaño: " + msginfo.size);
 						POP3MessageInfo pmi =  pop3.listUniqueIdentifier(i+1);
-						System.out.println("IDentificador: "+ pmi.identifier + " Number: " + pmi.number + " Tamaño: " + pmi.size);
+						//System.out.println("IDentificador: "+ pmi.identifier + " Number: " + pmi.number + " Tamaño: " + pmi.size);
 						//BufferedReader reader = (BufferedReader)pop3.retrieveMessageTop(msginfo.number,0);
 					 BufferedReader reader = (BufferedReader)pop3.retrieveMessage(msginfo.number);
 						String linea;
 						while ((linea = reader.readLine())!=null)
-							System.out.println(linea.toString());
+							vr.getTextPane().setText(linea.toString()+"\n");
 						reader.close();
 					}
 				

@@ -47,6 +47,9 @@ public class Servidor extends JFrame implements Runnable{
 			public void run() {
 				try {
 					Servidor frame = new Servidor();
+					/*ModeloLogica modelo = new ModeloLogica();
+					 CrearTicket ct1 = new CrearTicket(modelo);
+					CrearTicketController ct = null;*/
 					new Thread(frame).start();
 					frame.setVisible(true);
 				} catch (Exception e) {

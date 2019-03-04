@@ -66,7 +66,6 @@ public class CrearTicket extends JDialog implements Runnable {
 		 try {
 			listener =  new CrearTicketController(m, this);
 		} catch (SocketException | UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		JLabel lblNTickets = new JLabel("N\u00BA Tickets");
