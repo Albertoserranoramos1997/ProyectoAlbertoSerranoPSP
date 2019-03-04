@@ -186,5 +186,10 @@ public class ModeloLogica {
 	public boolean Responder(String respuesta, int id, int idcaso) {
 		return dao.Responder(respuesta, id, idcaso);
 	}
-	
+	public int Contid(int idadmin) {
+		return dao.ContTickets(idadmin);
+	}
+	public int ContarAdmins() {
+		return dao.ContarAdmins();
+	}
 }

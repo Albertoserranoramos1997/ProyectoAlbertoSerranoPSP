@@ -21,6 +21,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
@@ -57,7 +58,56 @@ public class Servidor extends JFrame implements Runnable{
 				}
 			}
 		});
-	}
+		 final PC pc = new PC(); 
+		  
+	        // Create producer thread 
+	        Thread t1 = new Thread(new Runnable() 
+	        { 
+	            @Override
+	            public void run() 
+	            { 
+	                try
+	                { 
+	                    pc.produce(); 
+	                } 
+	                catch(InterruptedException e) 
+	                { 
+	                    e.printStackTrace(); 
+	                } 
+	            } 
+	        }); 
+	  
+	        // Create consumer thread 
+	        Thread t2 = new Thread(new Runnable() 
+	        { 
+	            @Override
+	            public void run() 
+	            { 
+	                try
+	                { 
+	                    pc.consume(); 
+	                } 
+	                catch(InterruptedException e) 
+	                { 
+	                    e.printStackTrace(); 
+	                } 
+	            } 
+	        }); 
+	  
+	        // Start both threads 
+	        t1.start(); 
+	        t2.start(); 
+	        try {
+	        // t1 finishes before t2 
+	        t1.join(); 
+	       
+				t2.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+	    } 
+	
 
 	/**
 	 * Create the frame.
@@ -117,6 +167,71 @@ public class Servidor extends JFrame implements Runnable{
 		}
 		
 	}
+	 public static class PC {
+		   	ModeloLogica modelo = new ModeloLogica(); 			
+		    // Size of list is 2. 
+		    LinkedList<Integer> list = new LinkedList<>(); 
+		    
+		    int capacity = modelo.CargarDatosAdminPendientes().size();
+		    
+		    // Function called by producer thread 
+		    public void produce() throws InterruptedException { 
+		    	System.out.println(capacity); 
+		    	int value = modelo.ConatidAdmin(); 
+		        while (true) 
+		        { 
+		            synchronized (this) 
+		            { 
+		            	 
+		                // producer thread waits while list 
+		                // is full 
+		                while (list.size()==capacity) 
+		                    wait(); 
+
+		                System.out.println("Id Admin " + value); 
+
+		                // to insert the jobs in the list 
+		                list.add(value++); 
+
+		                // notifies the consumer thread that 
+		                // now it can start consuming 
+		                notify(); 
+
+		                // makes the working of program easier 
+		                // to  understand 
+		                Thread.sleep(1000); 
+		            } 
+		        } 
+		    } 
+		  
+		        // Function called by consumer thread 
+				public void consume() throws InterruptedException { 
+					int value = modelo.ConatidAdmin()-1; 
+		            while (true) 
+		            { 
+		                synchronized (this) 
+		                {   
+		                    // consumer thread waits while list 
+		                    // is empty 
+		                   // while (list.size()==1) 
+		                        wait(); 
+		  
+		                    //to retrive the ifrst job in the list 
+		                   // value =  1;
+		                    value++;		               
+		                    int val = modelo.Contid(value);
+		  
+		                    System.out.println("casos pendientes "+ val); 
+		  
+		                    // Wake up producer thread 
+		                    notify(); 
+		  
+		                    // and sleep 
+		                    Thread.sleep(1000); 
+		                } 
+		            } 
+		        } 
+		    } 
 	public JTextArea getTextArea() {
 		return textArea;
 	}

@@ -469,15 +469,38 @@ public class AgenciaVuelosDAOJDBC implements DAO{
 		int registros = 0;
 		try {
 			stmt = conex.createStatement();
-			String sql = "SELECT count(id_Admin) FROM tickets where estado = 'Pendiente' group by id_Admin";
+			String sql = "SELECT id_Admin FROM tickets where estado = 'Pendiente' group by id_Admin";
 			set = stmt.executeQuery(sql);
 			if (set.next()) {
-				registros = set.getInt(3);
+				registros = set.getInt(1);
 			}
 			stmt.close();
 			conex.close();
 			return registros;
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return -1;
+		} 
+	}
+	public int ContTickets(int idadmin) {
+		ConexionJDBC conn = new ConexionJDBC();
+		Connection conex = conn.getConnection();
+		Statement stmt;
+		ResultSet set;
+		
+		int registros = 0;
+		try {
+			stmt = conex.createStatement();
+			String sql = "SELECT count(id) FROM tickets where estado = 'Pendiente' and id_Admin="+ idadmin+ " group by id_Admin";
+			set = stmt.executeQuery(sql);
+			if (set.next()) {
+				registros = set.getInt(1);
+			}
+			stmt.close();
+			conex.close();
+			return registros;
+		} catch (SQLException e) {
+			System.out.println(e);
 			return -1;
 		} 
 	}
@@ -504,6 +527,29 @@ public class AgenciaVuelosDAOJDBC implements DAO{
 	        }
 			return existe;
 	}
+	public int ContarAdmins() {
+		ConexionJDBC conn = new ConexionJDBC();
+		Connection conex = conn.getConnection();
+		Statement stmt;
+		ResultSet set;
+		
+		int registros = 0;
+		try {
+			stmt = conex.createStatement();
+			String sql = "SELECT count(id_Admin) FROM tickets where estado = 'Pendiente' group by id_Admin";
+			set = stmt.executeQuery(sql);
+			if (set.next()) {
+				registros = set.getInt(1);
+			}
+			stmt.close();
+			conex.close();
+			return registros;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return -1;
+		} 
+	}
+	
 	public boolean Responder(String respuesta, int id, int idcaso) {
 		Statement stm = null;
 		try {

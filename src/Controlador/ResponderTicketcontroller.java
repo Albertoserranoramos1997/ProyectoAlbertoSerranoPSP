@@ -24,7 +24,8 @@ public class ResponderTicketcontroller implements ActionListener{
 			String respuesta = rt.getEditorPane().getText();
 			int id = Integer.parseInt(rt.getTextField().getText());
 			int idcaso = Integer.parseInt(rt.getTextField_1().getText());	
-			System.out.println(id + "" + idcaso);
+	
+
 			modelo.Responder(respuesta, id, idcaso);
 			rt.setVisible(false);
 		}if (nombre.equals("Cancelar")) {

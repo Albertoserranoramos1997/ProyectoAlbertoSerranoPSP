@@ -50,6 +50,7 @@ public class Ticket implements Serializable {
     	this.id = id;
     	this.id_Caso = id_Caso;
     	this.asunto = asunto;
+    	this.respuesta = asunto;
     }
     /**
 	 * Constructor con parametros
@@ -101,6 +102,7 @@ public class Ticket implements Serializable {
 		this.estado = estado;
 		this.respuesta = respuesta;
 	}
+	
 	public String getRespuesta() {
 		return respuesta;
 	}
