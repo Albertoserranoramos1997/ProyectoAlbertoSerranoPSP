@@ -2,6 +2,7 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.DatagramPacket;
@@ -19,6 +20,8 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLException;
 
+import org.apache.commons.net.pop3.POP3MessageInfo;
+import org.apache.commons.net.pop3.POP3SClient;
 import org.apache.commons.net.smtp.AuthenticatingSMTPClient;
 import org.apache.commons.net.smtp.SMTPReply;
 import org.apache.commons.net.smtp.SimpleSMTPHeader;
@@ -75,36 +78,42 @@ public class VistaTicketControlador implements ActionListener {
 		if (nombre.equals("Enviar Email")) {
 			VistaEnviar ve = new VistaEnviar();
 			ve.setVisible(true);
-			 
-	/*		 AuthenticatingSMTPClient client = new AuthenticatingSMTPClient();
-		  try {
-				startTls(client);
-			} catch (UnrecoverableKeyException | InvalidKeyException | KeyStoreException | NoSuchAlgorithmException
-					| InvalidKeySpecException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} */
-			   // String smtpHostServer = "smtp.gmail.com";
-			  //  String emailID = "pruebaalbertotono@gmail.com";
-			    
-			//    Properties props = System.getProperties();
-			   // props.put("mail.smtp.host", "smtp.gmail.com");
-			  //  props.put("mail.smtp.auth", "false");  
-			 //   props.setProperty("mail.transport.protocol", "smtp");     
-			//    props.setProperty("mail.smtp.host", "smtp.gmail.com");
-			   // props.put("mail.smtp.starttls.enable", "true");
-			  
-			  //  props.put("mail.smtp.port", "465");  
-			//    props.put("mail.debug", "true");  
-			 /*   props.put("mail.smtp.socketFactory.port", "465");  
-			  	props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");  
-			  	props.put("mail.smtp.socketFactory.fallback", "true");  */
-
-			/*    Session session = Session.getInstance(props, null);
-			    
-			    EmailUtil.sendEmail(session, emailID,"SimpleEmail Testing Subject", "SimpleEmail Testing Body");*/
 			    
 			}
+		if (nombre.equals("Recibir Email")) {
+			String server = "pop.gmail.com", username = "pruebaalbertotono@gmail.com", password = "147258asd147258";
+			int puerto = 995;
+			POP3SClient pop3 = new POP3SClient(true);
+			try {
+				pop3.connect(server, puerto);
+				System.out.println("Conexion realizada "+ server);
+				if(!pop3.login(username, password)) {
+					System.out.println("error login");
+				}else {
+					POP3MessageInfo[] men = pop3.listMessages();
+					System.out.println("Nº de mensajes : " +men.length);
+					for(int i=0; i<men.length; i++) {
+						System.out.println("Mensaje: " + (i+1));
+						POP3MessageInfo msginfo =  men[i];
+						System.out.println("IDentificador: "+ msginfo.identifier + " Number; " + msginfo.number + " Tamaño: " + msginfo.size);
+						POP3MessageInfo pmi =  pop3.listUniqueIdentifier(i+1);
+						System.out.println("IDentificador: "+ pmi.identifier + " Number: " + pmi.number + " Tamaño: " + pmi.size);
+						//BufferedReader reader = (BufferedReader)pop3.retrieveMessageTop(msginfo.number,0);
+					 BufferedReader reader = (BufferedReader)pop3.retrieveMessage(msginfo.number);
+						String linea;
+						while ((linea = reader.readLine())!=null)
+							System.out.println(linea.toString());
+						reader.close();
+					}
+				
+					pop3.logout();
+					pop3.disconnect();
+				}
+			}catch (IOException e){
+				System.out.println(e.getMessage());
+			}
+				    
+				}
 
 			
 		}
