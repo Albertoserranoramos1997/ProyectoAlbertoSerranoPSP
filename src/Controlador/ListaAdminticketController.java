@@ -29,10 +29,18 @@ public class ListaAdminticketController extends MouseAdapter implements ActionLi
 	ListaAdminTickets lta;
 	int idAdmin;
 	int idCaso=0;
+	/**
+	 * Constructor del modelo 
+	 * @param modelo
+	 * @param lta
+	 */
 	public ListaAdminticketController(ModeloLogica modelo, ListaAdminTickets lta){
 		this.modelo = modelo;
 		this.lta = lta;
 	}
+	/**
+	 *  Metodo que controla cuando clickas en un elemento de la lista
+	 */
 	 @Override
 	    public void mouseClicked(MouseEvent me) {
 	
@@ -45,6 +53,9 @@ public class ListaAdminticketController extends MouseAdapter implements ActionLi
 						
 	          
 	    }
+	 /**
+	  * Metodo que que le da funcionalidad a los botones
+	  */
 	@Override
 	public void actionPerformed(ActionEvent eve) {
 		String nombre = eve.getActionCommand();

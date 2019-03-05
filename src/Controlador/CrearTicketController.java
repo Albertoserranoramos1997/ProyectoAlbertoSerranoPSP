@@ -48,6 +48,13 @@ public class CrearTicketController implements ActionListener{
 		this.packet = packet;
 	
 	}
+	/**
+	 * Es el contructor del controlador y recive la vista y el modelo
+	 * @param modelo
+	 * @param ct
+	 * @throws SocketException
+	 * @throws UnknownHostException
+	 */
 	public CrearTicketController(ModeloLogica modelo, CrearTicket ct) throws SocketException, UnknownHostException {
 		this.ct = ct;
 		this.modelo = modelo;
@@ -57,7 +64,9 @@ public class CrearTicketController implements ActionListener{
 		clientSocket = new DatagramSocket();
 		System.out.println(clientSocket.getLocalPort());
 	}
-
+/**
+ *  Metodo que que le da funcionalidad a los botones
+ */
 	@Override
 	public void actionPerformed(ActionEvent eve) {
 		
@@ -70,7 +79,9 @@ public class CrearTicketController implements ActionListener{
 		}
 		
 	}
-	
+	/**
+	 * Metodo que se usa para enviar el ticket a traves del socket UDP
+	 */
 	  public void enviar() {
 		  try {	
 		 //puerto por el que escucha

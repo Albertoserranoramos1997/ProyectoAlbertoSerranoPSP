@@ -15,7 +15,9 @@ public class ResponderTicketcontroller implements ActionListener{
 		this.rt = rt;
 	}
 	
-	
+	/**
+	 * Metodo que controla cuando clickas en un elemento de la lista
+	 */
 	@Override
 	public void actionPerformed(ActionEvent eve) {
 		

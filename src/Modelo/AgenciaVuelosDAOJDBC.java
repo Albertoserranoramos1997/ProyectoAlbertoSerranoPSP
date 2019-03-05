@@ -460,6 +460,11 @@ public class AgenciaVuelosDAOJDBC implements DAO{
 			return null;
 		}
 	}
+	/**
+	 * Metodo que cuenta los id de los admins con tickets pendientes
+	 * @return
+	 */
+	
 	public int ConatidAdmin() {
 		ConexionJDBC conn = new ConexionJDBC();
 		Connection conex = conn.getConnection();
@@ -482,6 +487,11 @@ public class AgenciaVuelosDAOJDBC implements DAO{
 			return -1;
 		} 
 	}
+	/**
+	 * Metodo que cuetna el numero de id pendientes
+	 * @param idadmin
+	 * @return
+	 */
 	public int ContTickets(int idadmin) {
 		ConexionJDBC conn = new ConexionJDBC();
 		Connection conex = conn.getConnection();
@@ -504,6 +514,12 @@ public class AgenciaVuelosDAOJDBC implements DAO{
 			return -1;
 		} 
 	}
+	/**
+	 * Metodo que se usa para comprobar que el id no existe
+	 * @param id
+	 * @param idcaso
+	 * @return
+	 */
 
 	
 	public boolean ComprobarID(int id, int idcaso) {
@@ -527,6 +543,10 @@ public class AgenciaVuelosDAOJDBC implements DAO{
 	        }
 			return existe;
 	}
+	/**
+	 * Metodo que se usa para contar administradores
+	 * @return
+	 */
 	public int ContarAdmins() {
 		ConexionJDBC conn = new ConexionJDBC();
 		Connection conex = conn.getConnection();
@@ -549,6 +569,13 @@ public class AgenciaVuelosDAOJDBC implements DAO{
 			return -1;
 		} 
 	}
+	/**
+	 * Metodo que se usa para responder 
+	 * @param respuesta
+	 * @param id
+	 * @param idcaso
+	 * @return
+	 */
 	
 	public boolean Responder(String respuesta, int id, int idcaso) {
 		Statement stm = null;

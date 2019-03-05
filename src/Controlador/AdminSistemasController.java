@@ -24,11 +24,18 @@ public class AdminSistemasController implements ActionListener {
 	ListaAdminTickets lta;
 	int idCaso;
 	boolean abierto;
-	
-	public AdminSistemasController(ModeloLogica modelo, adminSistemas adm){
+	/**
+	 * Es el contructor del controlador y recive la vista y el modelo
+	 * @param modelo
+	 * @param adm
+	 */
+	public AdminSistemasController(ModeloLogica modelo, adminSistemas adm){ 
 		this.modelo = modelo;
 		this.adm = adm;
 	}
+	/**
+	 * Metodo que que le da funcionalidad a los botones
+	 */
 	@Override
 	public void actionPerformed(ActionEvent eve) {
 		String nombre = eve.getActionCommand();

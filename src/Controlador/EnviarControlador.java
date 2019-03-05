@@ -23,11 +23,18 @@ import Vista.VistaEnviar;
 
 public class EnviarControlador implements ActionListener{
 	VistaEnviar ve;
-	
+	/**
+	 * * Es el contructor del controlador y recive la vista y el modelo
+	 * @param ve
+	 */
 	public EnviarControlador(VistaEnviar ve) {
 		this.ve = ve;
 		
 	}
+	/**
+	 * 
+	 *  Metodo que que le da funcionalidad a los botones
+	 */
 	@Override
 	public void actionPerformed(ActionEvent eve) {
 		String nombre = eve.getActionCommand();
@@ -41,6 +48,9 @@ public class EnviarControlador implements ActionListener{
 				}
 		}
 	}
+	/**
+	 * Metodo que se usa para enviar un correo 
+	 */
 	private void startTls(final AuthenticatingSMTPClient client) throws SSLException, IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, InvalidKeyException, InvalidKeySpecException {
 		
 

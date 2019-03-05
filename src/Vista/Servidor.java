@@ -52,7 +52,7 @@ public class Servidor extends JFrame implements Runnable{
 					 CrearTicket ct1 = new CrearTicket(modelo);
 					CrearTicketController ct = null;*/
 					new Thread(frame).start();
-					frame.setVisible(true);
+					frame.setVisible(true); // se crea el hilo
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -133,6 +133,9 @@ public class Servidor extends JFrame implements Runnable{
 		panel.add(textArea);
 		textArea.setText("servidor iniciado en puerto "+socket.getLocalPort()+"------------");
 	}
+	/**
+	 * metodo run que ejecuta el propductor-consumidor y que sube a la bd el ticket
+	 */
 	@Override
 	public void run() {
 		while(true) {	

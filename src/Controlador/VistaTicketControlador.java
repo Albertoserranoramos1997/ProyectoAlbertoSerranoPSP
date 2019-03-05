@@ -81,9 +81,13 @@ public class VistaTicketControlador implements ActionListener {
 			ve.setVisible(true);
 			    
 			}
+	
 		if (nombre.equals("Recibir Email")) {
 			VistaRecibir vr = new VistaRecibir();
 			vr.setVisible(true);
+			/**
+			 * Metodo que recive el email con POP3
+			 */
 			String server = "pop.gmail.com", username = "pruebaalbertotono@gmail.com", password = "147258asd147258";
 			int puerto = 995;
 			POP3SClient pop3 = new POP3SClient(true);

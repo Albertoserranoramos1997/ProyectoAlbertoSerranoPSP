@@ -26,6 +26,9 @@ public class GenerarTicketControlador implements ActionListener {
 		this.modelo = m;
 		
 	}
+	/**
+	 *  Metodo que que le da funcionalidad a los botones
+	 */
 
 	public void actionPerformed(ActionEvent eve) {
 
@@ -46,7 +49,7 @@ public class GenerarTicketControlador implements ActionListener {
 			String annio = Integer.toString(c.get(Calendar.YEAR));
 			String fecha = ""+dia+"/"+(mes+1)+"/"+annio;
 			ct.getTextField_5().setText(fecha);
-			ct.getTextField_1().setText(Integer.toString(modelo.code()+1));
+			ct.getTextField_1().setText(Integer.toString(modelo.code()+1)); //obtiene el codigo 
 			ct.getTextField().setEditable(false);
 			int rnd = (int) (Math.random()*100);
 			if(modelo.ComprobarID(rnd, (modelo.code()+1))) {
@@ -55,8 +58,6 @@ public class GenerarTicketControlador implements ActionListener {
 				int rnd2 = (int) (Math.random()*100);
 				ct.getTextField().setText(Integer.toString(rnd2));
 			}
-			
-			
 		}
 	}
 }
