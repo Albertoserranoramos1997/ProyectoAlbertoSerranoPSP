@@ -20,6 +20,7 @@ public class VistaEnviar extends JFrame {
 	private JTextField textField_1;
 	private JButton btnNewButton;
 	EnviarControlador listener = new EnviarControlador(this);
+	private JTextField textField_2;
 	/**
 	 * Create the frame.
 	 */
@@ -37,7 +38,7 @@ public class VistaEnviar extends JFrame {
 		panel.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(147, 36, 116, 22);
+		textField.setBounds(175, 36, 116, 22);
 		panel.add(textField);
 		textField.setColumns(10);
 		
@@ -52,12 +53,21 @@ public class VistaEnviar extends JFrame {
 		panel.add(btnNewButton);
 		
 		JLabel lblAsunto = new JLabel("Asunto");
-		lblAsunto.setBounds(97, 39, 44, 16);
+		lblAsunto.setBounds(121, 39, 44, 16);
 		panel.add(lblAsunto);
 		
 		JLabel lblMensaje = new JLabel("Mensaje");
 		lblMensaje.setBounds(70, 68, 56, 16);
 		panel.add(lblMensaje);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(175, 11, 116, 20);
+		panel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblEnviarA = new JLabel("Enviar a");
+		lblEnviarA.setBounds(101, 14, 46, 14);
+		panel.add(lblEnviarA);
 	}
 	public JTextField getTextField() {
 		return textField;
@@ -71,4 +81,11 @@ public class VistaEnviar extends JFrame {
 	public void setTextField_1(JTextField textField_1) {
 		this.textField_1 = textField_1;
 	}
+	public JTextField getTextField_2() {
+		return textField_2;
+	}
+	public void setTextField_2(JTextField textField_2) {
+		this.textField_2 = textField_2;
+	}
+	
 }

@@ -91,7 +91,7 @@ public class EnviarControlador implements ActionListener{
 				
 				// se realiza la autenticación con el servidor
 				if (client.auth(AuthenticatingSMTPClient.AUTH_METHOD.LOGIN, username, password)) {
-					String destino1 = "pruebaalbertotono@gmail.com";
+					String destino1 = ve.getTextField_2().getText();
 					String asunto = ve.getTextField().getText();
 					String mensaje = ve.getTextField_1().getText();
 					// se crea la cabecera
